@@ -1,0 +1,40 @@
+INSTALL I3
+
+install
+# pacman -S i3 dmenu xorg xorg-xinit
+
+
+autostart i3 in xorg
+# vim ~/.xinitrc
+
+#	#! /bin/bash
+#	exec i3
+
+autostart xorg on boot in tty1
+# vim  /etc/profile
+
+#	#autostart systemd default session on tty1
+#	if [[ "$(tty)" == '/dev/tty1' ]]; then
+#		exec startx
+#	fi
+
+
+INSTALL ST TERMINAL
+
+install fonts
+# sudo pacman -S ttf-inconsolata ttf-linux-libertine
+
+clone from luke smiths github
+# git clone https://github.com/lukesmithxyz/st
+
+install st
+# cd st
+# sudo make install
+
+cleanup the mess
+# sudo rm -r st
+# rm .bash* wget-hsts .zsh_history .zshrc.pre-oh-my-zsh
+
+
+I3 CONFIG
+
