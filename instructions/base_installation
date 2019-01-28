@@ -1,0 +1,127 @@
+INTERNET CONNECTION
+
+# ping goolge.com
+
+
+SET SYSTEM CLOCK
+
+# timedatectl set-ntp true
+
+
+PARTITIONS
+doc: https://ww.tldp.org/LDB/Linux-Filesystem-Hierarchy/html/index.html
+
+get disks:
+# lsblk
+
+partition disk
+# fdisk /dev/sdx
+ 	o : create DOS partition table
+ 	g : create GPT 
+ 	n : new partition
+ 	p : print current partitions
+ 	w : write partitions
+
+partition size:
+	/boot	200MB/550MB	BIOS/EFI
+	/var	8~12GB
+	swap	==RAM
+	/home	Remainder
+
+format partitions
+# mkfs.ext4 /dev/sdxy
+# swapon /dev/sdxz
+
+mount 
+# mount /dev/sdxy /mnt
+
+
+INSTALLATION
+
+select mirors
+# vim /etc/pacman.d/mirrorlist
+
+install base
+# pacstrap /mnt base base-devel sudo vim git wget dialog wpa_actiond ifplugd wpa_supplicant zsh grub 
+	- sudo		enables root previliges for users
+	- vim		text editor
+	- git		to download packages from aur + development
+	- wget		dowload stuff from the internet
+	- dialog	dialogs
+	- wpa_actiond ifplugd wpa_supplicant	wifi-stuff
+	- zsh		shell for the bash
+	- grub		bootloader
+	- os-prober	only install if you want to dual boot windows
+
+generate fstab
+# genfstab -U /mnt >> /mnt/etc/fstab
+
+
+chroot into sesytem
+# arch-chroot /mnt
+
+
+USER SETTINGS
+
+change root password
+# passwd
+
+add user
+# useradd -m -G wheel -s /usr/bin/zsh username
+	-m		create home dir
+	-G wheel	add to the wheel group (use of sudo)
+	-s 		change the default shell
+	-username	name of the user you want to add
+
+change password
+# passwd username
+
+add sudo access to wheel group
+# visudo
+
+uncomment
+	# %wheel All=(All) ALL
+
+save and exit
+# escape :x
+
+
+BOOT CONFIGURATION
+
+install grub
+# grub-install --target=i386-pc --recheck /dev/sdx
+
+create config file for grub
+# grub-mkconfig -o /boot/grub/grub.cfg
+
+
+REBOOT
+
+exit chroot
+# exit
+
+reboot
+# reboot
+
+
+INTERNET CONNECTION
+
+list ethernet/wifi devices
+# ip addr
+
+autoconnect to known networks
+# sudo systemctl enable netctl-auto@wlp3s0
+# sudo systemctl enable netctl-ifplugd@enp2s0
+# sudo systemctl enable dhcpcd
+
+to connect to unknown wifi
+# sudo Wi-Fi-menu 
+
+
+REBOOT
+# reboot
+
+
+OH-MY-ZSH
+install oh-my-zsh
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
