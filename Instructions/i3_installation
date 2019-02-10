@@ -11,12 +11,10 @@ autostart i3 in xorg
 #	exec i3
 
 autostart xorg on boot in tty1
-# vim  /etc/profile
+# vim  .bash_profile
 
 #	#autostart systemd default session on tty1
-#	if [[ "$(tty)" == '/dev/tty1' ]]; then
-#		exec startx
-#	fi
+#	[ "$(tty)" == '/dev/tty1' ] && ! pgrep -x i3 >/dev/null && exec startx
 
 
 INSTALL ST TERMINAL
