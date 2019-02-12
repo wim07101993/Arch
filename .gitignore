@@ -1,12 +1,23 @@
-.viminfo
-.gitconfig
 .bash_history
+.esd_auth
+.gitconfig
+.viminfo
+.Xauthority
+
+.vim/.netrwhist
 
 .cache
 .local
 .mozilla
 .pki
+
+.config/mimeapps.list
+.config/QtProject.conf
+
 .config/google-chrome
+.config/menus
+.config/pulse
+.config/VirtualBox
 
 Downloads
 Music

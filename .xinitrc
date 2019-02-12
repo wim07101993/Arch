@@ -5,4 +5,4 @@
 
 export TERMINAL="st"
 
-exec i3
+exec i3 

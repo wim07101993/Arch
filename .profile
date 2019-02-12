@@ -20,4 +20,6 @@ export LESS_TERMCAP_ue=$'\E[0m'		# reset underline
 
 echo $0 | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc"
 
-[ -f "$HOME/.i3_profile" ] && source "$HOME/.i3_profile"
+if [ "$(tty)" = "/dev/tty1" ]; then
+	[ -f "$HOME/.i3_profile" ] && source "$HOME/.i3_profile"
+fi
