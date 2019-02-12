@@ -5,6 +5,8 @@
 .cache
 .local
 .mozilla
+.pki
+.config/google-chrome
 
 Downloads
 Music
