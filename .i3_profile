@@ -4,4 +4,6 @@ export BROWSER="firefox"
 export BROWSER2="google-chrome-stable"
 
 # Start graphical server if i3 not already running.
-[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null & exec startx
+if [ "$(tty)" = "/dev/tty1" ]; then
+	!  pgrep -x i3 >/dev/null & exec startx
+fi
