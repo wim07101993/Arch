@@ -10,9 +10,7 @@ alias h="cd ~/ && ls -a" \
 	sc="cd ~/scripts && ls -a" \
 	mn="cd ~/mnt && ls -a" \
 	cdb="$EDITOR ~/.bashrc" \
-	cdz="$EDITOR ~/.zshrc" \
 	cfv="$EDITOR ~/.config/nvim/init.vim" \
 	cfr="$EDITOR ~/.config/ranger/rc.conf" \
-	cfi="$EDITOR ~/.config/i3/config" \
 	cfd="$EDITOR ~/.Xdefaults" 
 	
