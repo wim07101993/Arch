@@ -1,0 +1,128 @@
+Create a service file in the systemd folder
+# vim /etc/systemd/system/my_deamon.service
+
+Example file
+#	[Unit]
+#	Description=My Miscellaneous Service
+#	After=network.target
+#
+#	[Service]
+#	Type=simple
+#	Restart=always
+#	User=current_user
+#	ExecStart=/path/to/script
+#
+#	[Install]
+#	WantedBy=multi-user.target
+#	# at least one thing has to be defined in "intall" otherwise you cannot
+#	# enable the service
+
+[Unit] - contains generic options that are not dependent on the type of the unit.
+These options provide unit description, specify the unit's behavior, and set 
+dependencies to other units.
+
+
+Option		Description
+
+Description	A meaningfull description of the unit. This is text displayed
+		for example in the output of the "systemctl status" command.
+
+Documentation	Provides a list of URIs referincing documentation fo rthe unit.
+
+After		Defines the order in which units are started. The unit starts 
+		only after the units specified in "After" are active. Unlike 
+		"Requires", "After" does not explicitly activate the specified
+		units. The "Before" option has the opposite functionality of 
+		"After".
+
+Requires	Configures dependencies on other units. The units listed in
+		"Required" are activated together with the unit. If any of the 
+		required units fail to start, the unit is not activated.
+
+Wants		Configures waker dependencies than "Requires". If any of the
+		listed units does not start successfully, it has no impact 
+		on the unit activation. This is the recommanded way to establish
+		custom unit dependencies.
+
+Conflicts	Configures negative dependencies, an opposite to "Requires"
+
+Complete list: "systemd.unit(5)" manual page.
+
+
+
+[Unit type] - if a unit has type-specific directives, these are grouped uner a
+section named after the unit type. For example, service unit files contain the
+[Service] section.
+
+
+Option		Description 
+
+Type		Configures the unit process startup type that affects the
+		functionality of "ExecStart" and related options. One of:
+		- "simple" - The default value. The process started with
+		  "ExecStart" is the main process of the service.
+		- "forking" - The process started with "ExecStart" spawns a
+		  child process that becomes the main process of the service.
+		  The parent process exits when the startup is complete.
+		- "oneshot" - This type is similar to "simple", but the process
+		  exits before starting consequent units.
+		- "dbus" - This type is similar to "simple", but conequent 
+		  units are started only after the main process gains a D-bus
+		  name.
+		- "notify simple" - This type is similar to "simple", but 
+		  conequent units are started only after a notification message
+		  is sent via the sd_notify() function.
+		- "idle" - similar to "simple", the actual execution of the 
+		  service binary is delayed until all jobs are finished, which
+		  avoids mixing the status output with shell output of service.
+
+ExecStart	Specifies commands or scripts to be executed when the unit is 
+		started. "ExecStartPre" and "ExecStartPost" specify custom
+		commands to be executed before and after "ExecStart"
+		"Type=oneshot" enables specifying multiple custom commands
+		that are then executed sequentially.
+
+ExecStop	Specifies commands or scripts to be executed when the unit is
+		stopped.
+
+ExecReload	Specifies commands or scripts to be executed when the unit is
+		reloaded.
+
+Restart		With this option enabled, the service is restarted after its
+		process exits, with the exception of a clean stop by the 
+		"systemctl" command.
+
+RemainAfterExit	If set to True, the service is considered active even when all
+		its processes exited. Default value is False. This option is
+		especially useful if "Type=oneshot" is configured.
+
+Complete list: "systemd.service(5)" manual page
+
+
+
+[Install] - contains infomatino about unit installation used by "system enable"
+and "disable" commands.
+
+
+Option		Description
+
+Alias		Provides a space-separated list of additional names for the 
+		unit. Most "systemctl" commands, including "systemctl enable",
+		can use aliases instead of the actual unit name.
+
+RequiredBy	A list of units that depend on the unit. When this unit is 
+		enabled, the units listed in "RequiredBy" gain a "Require"
+		dependency on the unit.
+
+WantedBy	A list of units that weakly depend on the unit. When this unit
+		is enabled, the units listed in "WantedBy" gain a "Want"
+		dependency on the unit.
+
+Also		Specifies a list of units to be installed or uninstalled along
+		with the unit
+
+DefaultInstance	Limited to instatiated units, this option specifies the default
+		instance for which the unit is enabled. 
+
+Complete list: "systemd.service(5)" manual page
+

@@ -34,7 +34,3 @@ install st
 cleanup the mess
 # sudo rm -r st
 # rm .bash* wget-hsts .zsh_history .zshrc.pre-oh-my-zsh
-
-
-I3 CONFIG
-

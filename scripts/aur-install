@@ -1,0 +1,33 @@
+#!/bin/bash
+
+COLOR='\033[0;34m'
+NC='\033[0m'
+
+DIR="/tmp/aur-install/"
+
+
+# create download directory
+if [ ! -d "$DIR" ]; then
+	echo -e "${COLOR}mkdir -pv $dir${NC}"
+	mkdir -pv $DIR
+fi
+
+cd $DIR
+
+#clone the package
+echo -e "${COLOR}git clone http://aur.archlinux.org/$1.git${NC}"
+git clone "http://aur.archlinux.org/$1.git"
+
+cd $1
+
+# build package
+echo -e "${COLOR}makepkg -Acsf${NC}"
+makepkg -Acsf
+
+# install package
+echo -e "${COLOR}sudo pacman -U *.pkg.tar.xz${NC}"
+sudo pacman -U *.pkg.tar.xz
+
+# remove download directory
+echo -e "${COLOR}sudo rm -r $HOME/Downloads/AUR/$1/${NC}"
+sudo rm -r $DIR

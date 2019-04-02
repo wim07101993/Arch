@@ -42,16 +42,15 @@ select mirors
 # vim /etc/pacman.d/mirrorlist
 
 install base
-# pacstrap /mnt base base-devel sudo vim git wget dialog wpa_actiond ifplugd wpa_supplicant zsh grub 
+# pacstrap /mnt base base-devel sudo nvim git wget networkmanager wpa_actiond ifplugd wpa_supplicant grub 
 	- sudo		enables root previliges for users
-	- vim		text editor
+	- neovim		text editor
 	- git		to download packages from aur + development
 	- wget		dowload stuff from the internet
-	- dialog	dialogs
+	- networkmanager  does what it says
 	- wpa_actiond ifplugd wpa_supplicant	wifi-stuff
-	- zsh		shell for the bash
 	- grub		bootloader
-	- os-prober	only install if you want to dual boot windows
+	(- os-prober	only install if you want to dual boot windows)
 
 generate fstab
 # genfstab -U /mnt >> /mnt/etc/fstab
@@ -67,10 +66,9 @@ change root password
 # passwd
 
 add user
-# useradd -m -G wheel -s /usr/bin/zsh username
+# useradd -m -G wheel username
 	-m		create home dir
 	-G wheel	add to the wheel group (use of sudo)
-	-s 		change the default shell
 	-username	name of the user you want to add
 
 change password
@@ -84,6 +82,16 @@ uncomment
 
 save and exit
 # escape :x
+
+
+INTERNET CONNECTION
+
+autoconnect to known networks
+# sudo systemctl enable NetworkManager
+# sudo systemctl enable dhcpcd
+
+to connect to unknown wifi
+# sudo Wi-Fi-menu 
 
 
 BOOT CONFIGURATION
@@ -103,25 +111,3 @@ exit chroot
 reboot
 # reboot
 
-
-INTERNET CONNECTION
-
-list ethernet/wifi devices
-# ip addr
-
-autoconnect to known networks
-# sudo systemctl enable netctl-auto@wlp3s0
-# sudo systemctl enable netctl-ifplugd@enp2s0
-# sudo systemctl enable dhcpcd
-
-to connect to unknown wifi
-# sudo Wi-Fi-menu 
-
-
-REBOOT
-# reboot
-
-
-OH-MY-ZSH
-install oh-my-zsh
-sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"

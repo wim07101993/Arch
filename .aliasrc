@@ -1,0 +1,17 @@
+#!/bin/bash
+alias ka="killall" \
+	p="sudo pacman" \
+	SS="sudo systemctl" \
+	g="git" \
+	e="$EDITOR" \
+	sdn="sudo shutdown -h now" \
+	ls="ls -h --color=auto --group-directories-first" \
+	l="ls -ah --color=auto --group-directories-first" \
+	la="ls -all --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="dif --color=auto" \
+	upc="sudo pacman -Syu; pkill -RTMIN+8 i3blocks" \
+	lsp="pacman -Qett --color=always | less"
+
+# Use neovim for vimdiff if present
+command -v nvim >/dev/null && alias vimdiff="nvim -d"
