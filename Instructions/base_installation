@@ -88,7 +88,6 @@ INTERNET CONNECTION
 
 autoconnect to known networks
 # sudo systemctl enable NetworkManager
-# sudo systemctl enable dhcpcd
 
 to connect to unknown wifi
 # sudo Wi-Fi-menu 
