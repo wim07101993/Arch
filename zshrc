@@ -17,4 +17,14 @@ case ${TERM} in
 		;;
 esac
 
+source $HOME/source/repos/arch/.colorsrc
 source $HOME/source/repos/arch/.aliasrc
+
+# Check the window size after each command, and update LINES and COLUMNS if the size changed.
+shopt -s checkwinsize
+# Append history instead of overwriting
+shopt -s histappend
+# CD into dir by only typing the name
+shopt -s autocd
+
+shopt -s expand_aliases

@@ -18,13 +18,9 @@ git clone "http://aur.archlinux.org/$1.git"
 
 cd $1
 
-# build package
-echo -e "${COLOR}makepkg -Acsf${NC}"
-makepkg -Acsf
-
 # install package
-echo -e "${COLOR}pacman -U *.pkg.tar.xz${NC}"
-sudo pacman -U *.pkg.tar.xz
+echo -e "${COLOR}makepkg -si${NC}"
+makepkg -si
 
 # remove download directory
 echo -e "${COLOR}rm -r $DIR${NC}"
